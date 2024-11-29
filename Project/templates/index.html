@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backlogs</title>
+    {% comment %} <style>
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.3s;
+          width: 40%;
+        }
+        
+        .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        
+        .container {
+          padding: 2px 16px;
+        }
+    </style> {% endcomment %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            
+        }
+
+        .login-form {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 40px;
+            margin: 10px;
+            width: 250px;
+            height: 400px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        select, button {
+            font-size: 15px;
+            padding: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+          }
+          label {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
+          }
+          .form-container {
+      text-align: center;
+      margin: 20px auto;
+      max-width: 300px;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header style="background-color: #f1f1f1; padding: 20px;">
+    <img src="static/griet.png" alt="Your Image" style="width: 100% height=auto">
+</header>
+
+{% comment %} cards {% endcomment %}
+{% comment %} <table style="width:100%">
+    <tr>
+        <td>
+            <div class="card">
+                <img src="img_avatar.png" style="width:100%">
+                <div class="container">
+                <h4><b>Class Backlogs</b></h4> 
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="card">
+                <img src="img_avatar.png" style="width:100%">
+                <div class="container">
+                <h4><b>Student Backlogs</b></h4> 
+                </div>
+            </div>
+        </td>
+    </tr>
+</table> {% endcomment %}
+<div id="container">
+    <div class="login-form">
+        <h2><center>Student Backlogs</center></h2>
+        <form action="/student.html" method="POST">
+        {% csrf_token %}
+            {% comment %} <img src="static/student.png" style="width: 100%"> {% endcomment %}
+            <p><b>Course:</b></p>
+            <input type="text" id="crs" name="crs" placeholder="Course" required>
+            <p><b>Section:</b></p>
+            <input type="text" id="sec" name="sec" placeholder="Section" required>
+            <p><b>Roll No:</b></p>
+            <input type="text" id="rn" name="rn" placeholder="Roll No" required>
+            <input type="submit" value="Submit">
+            {% comment %} <div class="form-container">
+                <label for="course">Course:</label>
+                <select id="course" onchange="updateSections()">
+                  <option value="CSM">CSM</option>
+                  <option value="CSB">CSB</option>
+                  <option value="CSD">CSD</option>
+                </select>
+              
+                <label for="section">Section:</label>
+                <select id="section">
+                  <!-- Default options -->
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
+                <label for="rollno">Roll No:</label>
+                <input type="text" name="rollno" placeholder="Roll No" required>
+                <input type="submit" value="Submit"> 
+        </div> {% endcomment %}
+        </form>
+    </div>
+
+    <div class="login-form">
+        <h2><center>Class Backlogs</center></h2>
+        <form action="/class.html" method="POST">
+        {% csrf_token %}
+            <p><b>Course:</b></p>
+            <input id="course" type="text" name="course" placeholder="Course" required>
+            <p><b>Section:</b></p>
+            <input id="section" type="text" name="section" placeholder="Section" required>
+            <input type="submit" value="Submit">
+            {% comment %} <div class="form-container">
+                <label for="course">Course:</label>
+                <select id="course" onchange="updateSections()">
+                  <option value="CSM">CSM</option>
+                  <option value="CSB">CSB</option>
+                  <option value="CSD">CSD</option>
+                </select>
+              
+                <label for="section">Section:</label>
+                <select id="section">
+                  <!-- Default options -->
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
+                <input type="submit" value="Submit"> 
+        </div> {% endcomment %}
+        </form>
+    </div>
+</div>
+<script>
+function updateSections() {
+    const classSelect = document.getElementById("course");
+    const sectionSelect = document.getElementById("section");
+  
+    // Clear existing options
+    sectionSelect.innerHTML = "";
+  
+    // Get the selected class
+    const selectedClass = classSelect.value;
+  
+    // Add new options based on the selected class
+    if (selectedClass === "CSM") {
+      const option1 = document.createElement("option");
+      option1.value = "A";
+      option1.textContent = "A";
+      sectionSelect.appendChild(option1);
+  
+      const option2 = document.createElement("option");
+      option2.value = "B";
+      option2.textContent = "B";
+      sectionSelect.appendChild(option2);
+
+      const option3 = document.createElement("option");
+      option3.value = "C";
+      option3.textContent = "C";
+      sectionSelect.appendChild(option3);
+    } 
+    else if (selectedClass === "CSB") {
+      const option1 = document.createElement("option");
+      option1.value = "A";
+      option1.textContent = "A";
+      sectionSelect.appendChild(option1);
+    }
+    else if (selectedClass === "CSD") {
+        const option1 = document.createElement("option");
+        option1.value = "A";
+        option1.textContent = "A";
+        sectionSelect.appendChild(option1);
+      }
+  }
+  
+  // Call updateSections on page load to set the initial options
+  updateSections();
+  </script>
+</body>
+</html>

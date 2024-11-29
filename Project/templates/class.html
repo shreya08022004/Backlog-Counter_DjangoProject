@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <style> 
+            header {
+                background-color: #333;
+                color: #fff;
+                padding: 10px;
+                text-align: center;
+            }
+            table {
+                width: 50%;
+              }
+              
+              th {
+                height: 70px;
+                text-align: center;
+              }
+              tr {
+                height: 50px;
+                text-align: center;
+              }
+        </style>
+    </head>
+    <body> 
+        <header style="background-color: #f1f1f1; padding: 20px;">
+            <img src="static/griet.png" alt="Your Image" style="width: 100% height=auto">
+        </header>
+        {% extends 'basic.html'%}
+            {% block content %}
+            <center><h2>Course: {{course}}</h2>
+            <h2>Section: {{section}}</h2></center>
+            {% comment %} <p>Result: {{result}}</p> {% endcomment %}
+            <p><h3>Backlogs per Subject:</h3></p>
+            <table border='2'>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Count of Backlogs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key, value in result.items %}
+                    <tr>
+                        <td> {{ key }} </td> <td> {{ value }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            {% comment %} <p>Total Backlogs: {{total}}</p> {% endcomment %}
+            {% endblock %}
+    </body>
+</html>
